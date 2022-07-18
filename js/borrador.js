@@ -20,7 +20,6 @@ if (valor === "localStorage") {
     contenedor.innerHTML += html;
 }
 
-
 /*     if (check.checked) {
         guardar("localStorage")
     } else {

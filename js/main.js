@@ -1,87 +1,32 @@
-let btnRegistrarse = document.querySelector("#btnRegistrarse"),
-    btnLogin = document.querySelector("#btnLogin"),
-    check = document.querySelector("#check");
+document.title = "Pardosera - Fetch"
 
-const nombre = document.querySelector("#nombre"),
-    email = document.querySelector("#email"),
-    password = document.querySelector("#password"),
-    p = document.querySelector("p");
+const tituloH1 = document.querySelector("h1");
 
+tituloH1.innerText = "Complementario - Fetch"
 
+const listaPost = document.querySelector("#post");
 
-    btnRegistrarse.innerText = "Registrarse"
-    btnLogin.innerText = "Ya estas registrado?"
+const url = "datos.json";
 
 
-/* Declarando Arrays de objetos */
-let clientesSessionStorage = []
-let clientesLocalStorage = []
+//Cargando productos
 
+const cargandoProductos = async () => {
+    const respuesta = await fetch(url)
 
-/* Funciones */
-function guardar(valor) {
-    let user = { uNombre: nombre.value, uEmail: email.value, uPassword: password.value };
+    const productos = await respuesta.json()
 
-    if (user.uNombre == "" || user.uEmail == "" || user.uPassword == "") {
-        Swal.fire({
-            icon: 'error',
-            title: ':C',
-            text: 'Complete todos los campos por favor!',
-        })
-        return;
-    } else {
-        let { uNombre: nombre, uEmail: email } = user
-        if (valor === "sessionStorage") {
-            /* Creando Array de objetos */
-            clientesSessionStorage.push(user)
-            sessionStorage.setItem("usuario", JSON.stringify(clientesSessionStorage))
+    productos.forEach((productos) => {
+        const li = document.createElement("li");
+        const { id, nombre, precio, img } = productos;
+        li.innerHTML = `    <h3>Producto: ${nombre.toUpperCase()}</h3>
+      <img src="${img}">
+      <hr>
+      <p>ID: ${id}</p>
+      <p>Precio: $ ${precio}</p>`;
 
-            Toastify({
+        listaPost.append(li);
+    });
 
-                text: "Gracias por registrarse",
-
-                duration: 5000
-
-            }).showToast();
-        }
-        if (valor === "localStorage") {
-            /* Creando Array de objetos */
-            clientesLocalStorage.push(user)
-            localStorage.setItem("usuario", JSON.stringify(clientesLocalStorage))
-            Toastify({
-
-                text: "Gracias por registrarse",
-
-                duration: 5000
-
-            }).showToast();
-
-        }
-    }
 }
-
-
-function recuperoDatos(datos) {
-    if (datos) {
-        nombre.value = datos.uNombre;
-        email.value = datos.uEmail;
-        password.value = datos.uPassword;
-    }
-}
-
-recuperoDatos(JSON.parse(localStorage.getItem("persona")));
-
-
-btnRegistrarse.addEventListener("click", (event) => {
-    console.log(event.target);
-    event.preventDefault()
-    check.checked ? guardar("localStorage") : guardar("sessionStorage")
-});
-
-
-
-btnLogin.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "./login.html";
-});
-
+cargandoProductos()

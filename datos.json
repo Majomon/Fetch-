@@ -1,0 +1,26 @@
+[
+    {
+        "id": 0,
+        "nombre": "Chop de ceramica",
+        "precio": 600,
+        "stock": 10,
+        "img": "./assets/img/productos/choop.jpg",
+        "alt": "chop"
+    },
+    {
+        "id": 1,
+        "nombre": "Taza recta de ceramica",
+        "precio": 350,
+        "stock": 10,
+        "img": "./assets/img/productos/taza.jpg",
+        "alt": "taza"
+    },
+    {
+        "id": 2,
+        "nombre": "Mate de ceramica",
+        "precio": 300,
+        "stock": 10,
+        "img": "./assets/img/productos/mate.jpg",
+        "alt": "mate"
+    }
+]
